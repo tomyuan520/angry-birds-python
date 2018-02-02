@@ -11,7 +11,7 @@ import turtle
 # until the projectile hit the ground or      #
 # structure                                   #
 ###############################################
-def projectile_xy(v, a, dX, dY, hs=5.0, g=9.8, t):
+def projectile_xy(v, a, dX, dY, hs=5.0, g=9.8):
     '''
     calculate a list of (x, y) projectile motion data points
     where:
@@ -28,7 +28,8 @@ def projectile_xy(v, a, dX, dY, hs=5.0, g=9.8, t):
     vY_int = v*math.sin(math.degrees(a))
     vX_fin = vX_int
     vY_fin = vY_int - g*t
-    
+    dX = vX_int * t
+    dY = 5 + vY_int * t -0.5*g*t**2
     #get all the results
 
     #Start time at 0
@@ -59,18 +60,18 @@ def projectile_xy(v, a, dX, dY, hs=5.0, g=9.8, t):
         # Check to see if projectile has hit ground level
             # if projectile hit the ground, use the break command
             # to exit the loop
-            if y == 0:
-                break
+        if y == 0:
+           break
         
         # Calculate the distance x at time t
         x = v*math.cos(math.degrees(a))*t
         # Check if the projectile has hit the structure
         # Hint: check for the following:
         # missed is False and x value is >= distance x and y is > 0
-            if y < dY:
-                break
-            elif x > (dX + 10):
-                missed = True
+        if y < dY:
+            break
+        elif x > (dX + 10):
+            missed = True
 
         # Move the Turtle to the (X, Y) position
         turt.goto(x,y)
@@ -83,10 +84,10 @@ def projectile_xy(v, a, dX, dY, hs=5.0, g=9.8, t):
 #Insert the code from Task 1 of the program here
 import math
 
-v = int(input("The magnitude of the velocity of the Red Bird in m/s:"))
-a = int(input("The angle with respect to the horizontal of the velocity vector, in degrees:"))
-d = int(input("The horizontal distance to the structure you're trying to knock down with the Red Bird, in m: "))
-h = int(input('The height of the structure in m:' ))
+v = float(input("The magnitude of the velocity of the Red Bird in m/s:"))
+a = float(input("The angle with respect to the horizontal of the velocity vector, in degrees:"))
+d = float(input("The horizontal distance to the structure you're trying to knock down with the Red Bird, in m: "))
+h = float(input('The height of the structure in m:' ))
 
 vX = v*math.cos(a/180*math.pi)
 vY = v*math.sin(a/180*math.pi)
@@ -137,7 +138,7 @@ wn.bgcolor("white")
 # d = Distance in X direction           #
 # h = Height of the structure           #
 #########################################
-projectile_xy(v, a, d, h, t)
+projectile_xy(v, a, d, h)
 
 # Runs the graphics until they are closed
 wn.mainloop()
