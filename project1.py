@@ -11,7 +11,7 @@ import turtle
 # until the projectile hit the ground or      #
 # structure                                   #
 ###############################################
-def projectile_xy(v, a, dX, dY, hs=5.0, g=9.8):
+def projectile_xy(v, a, dX, dY, hs=5.0, g=9.8, t):
     '''
     calculate a list of (x, y) projectile motion data points
     where:
@@ -24,6 +24,13 @@ def projectile_xy(v, a, dX, dY, hs=5.0, g=9.8):
     hs is starting height with respect to ground (meters)
     g is the gravitational pull (meters/second_square)
     '''
+    vX_int = v*math.cos(math.degrees(a))
+    vY_int = v*math.sin(math.degrees(a))
+    vX_fin = vX_int
+    vY_fin = vY_int - g*t
+    
+    #get all the results
+
     #Start time at 0
     t = 0.0
     
@@ -48,20 +55,18 @@ def projectile_xy(v, a, dX, dY, hs=5.0, g=9.8):
     
     while True:
         # Calculate the height y at time t
-        #DELETE ME AND PUT EQUATION TO SOLVE FOR Y
-        
+        y = v*math.sin(math.degrees(a))*t - 0.5*g*t**2
         # Check to see if projectile has hit ground level
-        #DELETE ME AND PUT IN THE IF STATEMENT
             # if projectile hit the ground, use the break command
             # to exit the loop
+            if y == 0:
+                break
         
         # Calculate the distance x at time t
-        #DELETE ME AND PUT EQUATION TO SOLVE FOR X
-        
+        x = v*math.cos(math.degrees(a))*t
         # Check if the projectile has hit the structure
         # Hint: check for the following:
         # missed is False and x value is >= distance x and y is > 0
-        #DELETE ME AND PUT IN THE IF STATEMENT
             if y < dY:
                 break
             elif x > (dX + 10):
@@ -132,7 +137,7 @@ wn.bgcolor("white")
 # d = Distance in X direction           #
 # h = Height of the structure           #
 #########################################
-projectile_xy(v, a, d, h)
+projectile_xy(v, a, d, h, t)
 
 # Runs the graphics until they are closed
 wn.mainloop()
